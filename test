@@ -1,0 +1,15 @@
+#!/bin/bash
+
+CONTAINER_NAME="flask-port-test"
+DELAY=3
+
+docker run -d --name $CONTAINER_NAME -e FLASK_PORT=$FLASK_PORT -p $FLASK_PORT:$FLASK_PORT flask python main.py
+
+echo "Sleeping for $DELAY sec to make sure flask is running"
+sleep $DELAY
+
+curl $FLASK_HOST:$FLASK_PORT
+echo ""
+
+echo "Removing $CONTAINER_NAME"
+docker rm -f $CONTAINER_NAME
