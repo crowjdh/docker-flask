@@ -3,10 +3,11 @@
 CONTAINER_NAME="flask-port-test"
 DELAY=3
 
-docker run -d --name $CONTAINER_NAME -e FLASK_PORT=$FLASK_PORT -p $FLASK_PORT:$FLASK_PORT flask python main.py
+docker run -d --net=host --name $CONTAINER_NAME -e FLASK_PORT=$FLASK_PORT -p $FLASK_PORT:$FLASK_PORT flask python main.py
 
 echo "Go to $FLASK_HOST:$FLASK_PORT"
 read  -n 1 -p "Press any key to stop"
 
+echo ""
 echo "Removing $CONTAINER_NAME"
 docker rm -f $CONTAINER_NAME
